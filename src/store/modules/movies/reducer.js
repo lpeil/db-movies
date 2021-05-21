@@ -3,9 +3,7 @@ const initialState = [];
 export default function movies(state = initialState, action) {
   switch (action.type) {
     case '@movies/ADD_MORE':
-      state.concat(action.movies);
-
-      return state;
+      return state.concat(action.movies);
     case '@movies/CLEAR':
       return [];
     default:
