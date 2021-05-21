@@ -10,10 +10,12 @@ const Home = () => {
   const movies = useSelector((state) => state.movies);
 
   useEffect(() => {
-    apiGetTrending()
-      .then((data) => {
-        dispatch(addMoreMovies(data.results));
-      });
+    if (!movies.length) {
+      apiGetTrending()
+        .then((data) => {
+          dispatch(addMoreMovies(data.results));
+        });
+    }
   }, []);
 
   return (
