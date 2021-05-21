@@ -5,8 +5,11 @@ import HomePage from './screens/Home';
 import MoviePage from './screens/Movie';
 import NotFoundPage from './screens/NotFound';
 
+import { Navbar } from './components';
+
 const Routes = () => (
   <BrowserRouter>
+    <Navbar />
     <Switch>
       <Route path="/" exact component={HomePage} />
       <Route path="/movie/:id" exact component={MoviePage} />
