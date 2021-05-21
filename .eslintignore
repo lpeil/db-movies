@@ -1,0 +1,5 @@
+**/*.svg
+**/*.json
+**/*.png
+**/*.css
+webpack.config.js
