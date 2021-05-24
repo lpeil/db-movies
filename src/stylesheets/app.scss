@@ -2,8 +2,10 @@
 @import "core/colors";
 @import "core/app";
 @import "core/fonts";
+@import "core/animations";
 
 @import "../components/Navbar/style";
+@import "../components/Image/style";
 @import "../components/Card/style";
 
 @import "../screens/Home/style";
