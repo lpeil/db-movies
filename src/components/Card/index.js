@@ -1,9 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Card = ({ type, data, size }) => (
+import Image from '../Image';
+
+const Card = ({
+  type, data, size, loading,
+}) => (
   <div className={`card ${type} size-${size}`}>
-    <img src={`${process.env.TMDB_IMAGES}w300${data.poster_path}`} alt={data.title} />
+    {
+      loading
+        ? null
+        : <Image path={data.poster_path} alt={data.title} />
+    }
     {
       type === 'movie'
         ? (
@@ -23,10 +31,12 @@ Card.propTypes = {
   }).isRequired,
   size: PropTypes.string,
   type: PropTypes.string.isRequired,
+  loading: PropTypes.bool,
 };
 
 Card.defaultProps = {
   size: 'medium',
+  loading: false,
 };
 
 export default Card;

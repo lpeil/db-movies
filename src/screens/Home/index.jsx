@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { Grid, Button } from '@material-ui/core';
+
 import { apiGetTrending } from '../../services/trending';
 import { addMoreMovies } from '../../store/modules/movies/actions';
 
@@ -20,10 +22,18 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
-      {movies.map((movie) => (
-        <Card key={movie.id} data={movie} type="movie" />
-      ))}
+    <div className="home-screen">
+      <h1>Trending Movies</h1>
+      <Grid container direction="row" spacing={2}>
+        {movies.slice(0, 14).map((movie) => (
+          <Grid item key={movie.id}>
+            <Card data={movie} type="movie" />
+          </Grid>
+        ))}
+      </Grid>
+      <Grid container justify="center">
+        <Button variant="contained" color="primary">Load More</Button>
+      </Grid>
     </div>
   );
 };
