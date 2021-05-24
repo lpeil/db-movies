@@ -1,40 +1,58 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import Rating from 'react-rating';
 
-import { Star, StarOutline } from '@material-ui/icons';
+import { Banner, PosterInfos } from '../../components';
 
-import { Image } from '../../components';
-
-import { apiGetMovieById } from '../../services/movies';
+import {
+  apiGetMovieById, apiGetMovieRecommendations, apiGetMovieCredits,
+} from '../../services/movies';
 
 const Movie = () => {
   const { id: movieId } = useParams();
   const [movie, setMovie] = useState({});
+  const [, setRecommendations] = useState([]);
+  const [credits, setCredits] = useState({});
+
+  const loadExtraInfos = () => {
+    apiGetMovieRecommendations(movieId)
+      .then((data) => {
+        setRecommendations(data.results);
+      });
+
+    apiGetMovieCredits(movieId)
+      .then((data) => {
+        setCredits(data);
+      });
+  };
 
   useEffect(() => {
     apiGetMovieById(movieId)
       .then((data) => {
         setMovie(data);
+        loadExtraInfos();
       });
   }, [movieId]);
 
   return (
     <div className="movie-screen">
-      <div className="banner">
-        <Image path={movie.backdrop_path} alt={movie.title} size="original" />
-        <div className="banner-infos">
-          <h1>{movie.title}</h1>
-          <Rating
-            initialRating={movie.vote_average / 2}
-            readonly
-            fullSymbol={<Star />}
-            emptySymbol={<StarOutline />}
-          />
-        </div>
-      </div>
-      <div className="banner-size" />
-      <p>{movie.overview}</p>
+      <Banner
+        backdropPath={movie.backdrop_path}
+        title={movie.title}
+        voteAverage={movie.vote_average / 2}
+        voteCount={movie.vote_count}
+      />
+      <p className="sinopse">{movie.overview}</p>
+      <PosterInfos
+        director={credits.crew && credits.crew.filter((crew) => crew.job === 'Director')[0]?.name}
+        posterPath={movie.poster_path}
+        title={movie.title}
+        originalTitle={movie.original_title}
+        genres={movie.genres}
+        runtime={movie.runtime}
+        releaseDate={movie.release_date}
+        budget={movie.budget}
+        revenue={movie.revenue}
+      />
     </div>
   );
 };
