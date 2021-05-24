@@ -20,7 +20,7 @@ const Navbar = () => {
   });
 
   return (
-    <div>
+    <div className="navbar">
       <Link to="/">Home</Link>
       <input
         ref={searchInput}
