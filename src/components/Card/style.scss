@@ -1,7 +1,7 @@
 .card {
   position: relative;
 
-  &.movie {
+  &.movie, &.serie {
     cursor: pointer;
   }
 
@@ -29,7 +29,7 @@
     bottom: -5px;
     left: 0;
 
-    background: linear-gradient(360deg, #121212 0%, rgba(18, 18, 18, 0.81) 52.08%, rgba(18, 18, 18, 0) 100%);
+    background: linear-gradient(360deg, #121212 0%, rgba(18, 18, 18, 0.81) 70%, rgba(18, 18, 18, 0) 100%);
     opacity: 0;
     transition: .25s;
 

@@ -10,13 +10,13 @@ const Card = ({
     {
       loading
         ? null
-        : <Image path={data.poster_path} alt={data.title} />
+        : <Image path={data.poster_path} alt={type === 'movie' ? data.title : data.name} />
     }
     {
-      type === 'movie'
+      ['movie', 'serie'].includes(type)
         ? (
           <div className="bottom-name">
-            <span>{data.title}</span>
+            <span>{type === 'movie' ? data.title : data.name}</span>
           </div>
         )
         : null
@@ -26,8 +26,9 @@ const Card = ({
 
 Card.propTypes = {
   data: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    poster_path: PropTypes.string.isRequired,
+    title: PropTypes.string,
+    name: PropTypes.string,
+    poster_path: PropTypes.string,
   }).isRequired,
   size: PropTypes.string,
   type: PropTypes.string.isRequired,
