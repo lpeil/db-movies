@@ -37,7 +37,7 @@ const Navbar = () => {
         variant="outlined"
         onChange={((e) => searchContent(e.target.value))}
       />
-      <Button variant="outlined">
+      <Button variant="outlined" color="primary">
         EN
         <ExpandMore />
       </Button>
