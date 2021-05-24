@@ -1,22 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Grid, Button } from '@material-ui/core';
+import ListSection from './listSection';
 
 import { apiGetTrending } from '../../services/trending';
 import { addMoreMovies } from '../../store/modules/movies/actions';
-import { addMoreSeries } from '../../store/modules/series/actions';
-
-import { Card } from '../../components';
+import { addMoreTvShows } from '../../store/modules/tvShows/actions';
 
 const Home = () => {
   const dispatch = useDispatch();
   const movies = useSelector((state) => state.movies);
-  const series = useSelector((state) => state.series);
-  const [pageMovie, setPageMovie] = useState(1);
-  const [apiPageMovie, setApiPageMovie] = useState(1);
-  const [pageSerie, setPageSerie] = useState(1);
-  const [apiPageSerie, setApiPageSerie] = useState(1);
+  const tvShows = useSelector((state) => state.tvShows);
   const itemsPerPage = 14;
 
   useEffect(() => {
@@ -27,72 +21,28 @@ const Home = () => {
         });
     }
 
-    if (!series.length) {
+    if (!tvShows.length) {
       apiGetTrending(1, 'tv')
         .then((data) => {
-          dispatch(addMoreSeries(data.results));
+          dispatch(addMoreTvShows(data.results));
         });
     }
   }, []);
 
-  const loadMore = (type) => {
-    if (type === 'movie' && movies.length < itemsPerPage * (pageMovie + 1)) {
-      apiGetTrending((apiPageMovie + 1), type)
-        .then((data) => {
-          dispatch(addMoreMovies(data.results));
-          setApiPageMovie(apiPageMovie + 1);
-        });
-    } else if (series.length < itemsPerPage * (pageSerie + 1)) {
-      apiGetTrending((apiPageSerie + 1), type)
-        .then((data) => {
-          dispatch(addMoreSeries(data.results));
-          setApiPageSerie(apiPageSerie + 1);
-        });
-    }
-
-    if (type === 'movie') {
-      setPageMovie(pageMovie + 1);
-    } else {
-      setPageSerie(pageSerie + 1);
-    }
-  };
-
   return (
     <div className="home-screen">
-      <h1>Trending Movies</h1>
-      <Grid container direction="row" spacing={2}>
-        {movies.slice(0, (itemsPerPage * pageMovie)).map((movie) => (
-          <Grid item key={movie.id}>
-            <Card data={movie} type="movie" />
-          </Grid>
-        ))}
-      </Grid>
-      <Grid container justify="center">
-        <Button
-          onClick={() => loadMore('movie')}
-          color="primary"
-          variant="contained"
-        >
-          Load More
-        </Button>
-      </Grid>
-      <h1>Trending Series</h1>
-      <Grid container direction="row" spacing={2}>
-        {series.slice(0, (itemsPerPage * pageSerie)).map((movie) => (
-          <Grid item key={movie.id}>
-            <Card data={movie} type="serie" />
-          </Grid>
-        ))}
-      </Grid>
-      <Grid container justify="center">
-        <Button
-          onClick={() => loadMore('tv')}
-          color="primary"
-          variant="contained"
-        >
-          Load More
-        </Button>
-      </Grid>
+      <ListSection
+        type="movie"
+        module="movies"
+        title="Trending Movies"
+        itemsPerPage={itemsPerPage}
+      />
+      <ListSection
+        type="tv"
+        module="tvShows"
+        title="Trending TV Shows"
+        itemsPerPage={itemsPerPage}
+      />
     </div>
   );
 };

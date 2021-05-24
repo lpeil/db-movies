@@ -10,13 +10,13 @@ const Card = ({
     {
       loading
         ? null
-        : <Image path={data.poster_path} alt={type === 'movie' ? data.title : data.name} />
+        : <Image path={data.poster_path} alt={type === 'movies' ? data.title : data.name} />
     }
     {
-      ['movie', 'serie'].includes(type)
+      ['movies', 'tv'].includes(type)
         ? (
           <div className="bottom-name">
-            <span>{type === 'movie' ? data.title : data.name}</span>
+            <span>{type === 'movies' ? data.title : data.name}</span>
           </div>
         )
         : null
