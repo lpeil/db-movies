@@ -4,5 +4,5 @@ export default function toTime(value) {
   const hours = Math.floor(value / 60);
   const minutes = Math.floor(value % 60);
 
-  return `${hours ? `${hours}m ` : ''} ${minutes}m`;
+  return `${hours ? `${hours}h ` : ''} ${minutes}m`;
 }
