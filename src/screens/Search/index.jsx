@@ -1,29 +1,54 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
-import { apiSearchMovies } from '../../services/movies';
+import { ListCards } from '../../components';
 
-const SearchPage = () => {
+import { apiSearchMovies } from '../../services/search';
+
+const Home = () => {
   const { text } = useParams();
+
   const [movies, setMovies] = useState([]);
+  const [tvShows, setTvShows] = useState([]);
+
+  const itemsPerPage = 14;
 
   useEffect(() => {
-    apiSearchMovies(text)
-      .then((data) => {
-        setMovies(data.results);
-      });
-  }, [text]);
+    if (!movies.length) {
+      apiSearchMovies(1, 'movie', text)
+        .then((data) => {
+          setMovies(data.results);
+        });
+    }
+
+    if (!tvShows.length) {
+      apiSearchMovies(1, 'tv', text)
+        .then((data) => {
+          setTvShows(data.results);
+        });
+    }
+  }, []);
 
   return (
-    <div>
-      <h1>{`Search: ${text}`}</h1>
-      {movies.map((movie) => (
-        <Link to={`/movie/${movie.id}`} key={movie.id}>
-          <h1>{movie.title}</h1>
-        </Link>
-      ))}
+    <div className="home-screen">
+      <ListCards
+        type="movie"
+        module="disable"
+        title="Search Movies"
+        itemsPerPage={itemsPerPage}
+        apiGet={apiSearchMovies}
+        listItems={movies}
+      />
+      <ListCards
+        type="tv"
+        module="disable"
+        title="Search TV Shows"
+        itemsPerPage={itemsPerPage}
+        apiGet={apiSearchMovies}
+        listItems={tvShows}
+      />
     </div>
   );
 };
 
-export default SearchPage;
+export default Home;

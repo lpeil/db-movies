@@ -3,27 +3,38 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Grid, Button } from '@material-ui/core';
-import { Card } from '../../components';
+import Card from '../Card';
 
-import { apiGetTrending } from '../../services/trending';
 import { addMoreMovies } from '../../store/modules/movies/actions';
 import { addMoreTvShows } from '../../store/modules/tvShows/actions';
 
-const ListSection = ({
-  itemsPerPage, type, title, module,
+const ListCards = ({
+  itemsPerPage, type, title, module, apiGet, listItems,
 }) => {
   const dispatch = useDispatch();
-  const items = useSelector((state) => state[module]);
+  let items;
+
+  if (module === 'disable') {
+    items = listItems;
+  } else {
+    items = useSelector((state) => state[module]);
+  }
 
   const [page, setPage] = useState(1);
   const [apiPage, setApiPage] = useState(1);
 
   const loadMore = () => {
     if (items.length < itemsPerPage * (page + 1)) {
-      apiGetTrending((apiPage + 1), type)
+      apiGet((apiPage + 1), type)
         .then((data) => {
           if (type === 'movie') {
-            dispatch(addMoreMovies(data.results));
+            if (module === 'disable') {
+              items = items.merge(data.results);
+            } else {
+              dispatch(addMoreMovies(data.results));
+            }
+          } else if (module === 'disable') {
+            items = items.merge(data.results);
           } else {
             dispatch(addMoreTvShows(data.results));
           }
@@ -35,7 +46,7 @@ const ListSection = ({
   };
 
   return (
-    <>
+    <div className="list-cards">
       <h1>{title}</h1>
       <Grid container direction="row" spacing={2}>
         {items.slice(0, (itemsPerPage * page)).map((item) => (
@@ -53,19 +64,22 @@ const ListSection = ({
           Load More
         </Button>
       </Grid>
-    </>
+    </div>
   );
 };
 
-ListSection.propTypes = {
+ListCards.propTypes = {
   itemsPerPage: PropTypes.number,
   type: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   module: PropTypes.string.isRequired,
+  apiGet: PropTypes.func.isRequired,
+  listItems: PropTypes.array,
 };
 
-ListSection.defaultProps = {
+ListCards.defaultProps = {
   itemsPerPage: 14,
+  listItems: [],
 };
 
-export default ListSection;
+export default ListCards;

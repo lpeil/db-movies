@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import ListSection from './listSection';
+import { ListCards } from '../../components';
 
 import { apiGetTrending } from '../../services/trending';
 import { addMoreMovies } from '../../store/modules/movies/actions';
@@ -31,17 +31,19 @@ const Home = () => {
 
   return (
     <div className="home-screen">
-      <ListSection
+      <ListCards
         type="movie"
         module="movies"
         title="Trending Movies"
         itemsPerPage={itemsPerPage}
+        apiGet={apiGetTrending}
       />
-      <ListSection
+      <ListCards
         type="tv"
         module="tvShows"
         title="Trending TV Shows"
         itemsPerPage={itemsPerPage}
+        apiGet={apiGetTrending}
       />
     </div>
   );
