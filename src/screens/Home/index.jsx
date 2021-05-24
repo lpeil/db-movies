@@ -11,22 +11,19 @@ const Home = () => {
   const dispatch = useDispatch();
   const movies = useSelector((state) => state.movies);
   const tvShows = useSelector((state) => state.tvShows);
+
   const itemsPerPage = 14;
 
   useEffect(() => {
-    if (!movies.length) {
-      apiGetTrending(1)
-        .then((data) => {
-          dispatch(addMoreMovies(data.results));
-        });
-    }
+    apiGetTrending(1)
+      .then((data) => {
+        dispatch(addMoreMovies(data.results));
+      });
 
-    if (!tvShows.length) {
-      apiGetTrending(1, 'tv')
-        .then((data) => {
-          dispatch(addMoreTvShows(data.results));
-        });
-    }
+    apiGetTrending(1, 'tv')
+      .then((data) => {
+        dispatch(addMoreTvShows(data.results));
+      });
   }, []);
 
   return (
@@ -37,6 +34,8 @@ const Home = () => {
         title="Trending Movies"
         itemsPerPage={itemsPerPage}
         apiGet={apiGetTrending}
+        listItems={movies}
+        query="week"
       />
       <ListCards
         type="tv"
@@ -44,6 +43,8 @@ const Home = () => {
         title="Trending TV Shows"
         itemsPerPage={itemsPerPage}
         apiGet={apiGetTrending}
+        listItems={tvShows}
+        query="week"
       />
     </div>
   );

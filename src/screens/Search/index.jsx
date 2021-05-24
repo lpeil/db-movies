@@ -14,20 +14,16 @@ const Home = () => {
   const itemsPerPage = 14;
 
   useEffect(() => {
-    if (!movies.length) {
-      apiSearchMovies(1, 'movie', text)
-        .then((data) => {
-          setMovies(data.results);
-        });
-    }
+    apiSearchMovies(1, 'movie', text)
+      .then((data) => {
+        setMovies(data.results);
+      });
 
-    if (!tvShows.length) {
-      apiSearchMovies(1, 'tv', text)
-        .then((data) => {
-          setTvShows(data.results);
-        });
-    }
-  }, []);
+    apiSearchMovies(1, 'tv', text)
+      .then((data) => {
+        setTvShows(data.results);
+      });
+  }, [text]);
 
   return (
     <div className="home-screen">
@@ -38,6 +34,7 @@ const Home = () => {
         itemsPerPage={itemsPerPage}
         apiGet={apiSearchMovies}
         listItems={movies}
+        query={text}
       />
       <ListCards
         type="tv"
@@ -46,6 +43,7 @@ const Home = () => {
         itemsPerPage={itemsPerPage}
         apiGet={apiSearchMovies}
         listItems={tvShows}
+        query={text}
       />
     </div>
   );
