@@ -36,12 +36,13 @@ const Image = ({ path, alt, size }) => {
 
 Image.propTypes = {
   path: PropTypes.string,
-  alt: PropTypes.string.isRequired,
+  alt: PropTypes.string,
   size: PropTypes.string,
 };
 
 Image.defaultProps = {
   path: '',
+  alt: '',
   size: 'w300',
 };
 
