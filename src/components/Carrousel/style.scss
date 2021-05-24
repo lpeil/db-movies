@@ -1,0 +1,13 @@
+.arrow {
+  position: absolute!important;
+
+  top: 50%;
+}
+
+.arrow.prev {
+  left: -45px;
+}
+
+.arrow.next {
+  right: -45px;
+}

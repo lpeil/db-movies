@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { Banner, PosterInfos } from '../../components';
+import { Banner, Cast, PosterInfos } from '../../components';
 
 import {
   apiGetMovieById, apiGetMovieRecommendations, apiGetMovieCredits,
@@ -53,6 +53,7 @@ const Movie = () => {
         budget={movie.budget}
         revenue={movie.revenue}
       />
+      <Cast cast={credits.cast} />
     </div>
   );
 };

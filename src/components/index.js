@@ -1,4 +1,5 @@
 import Banner from './Banner';
+import Cast from './Cast';
 import Card from './Card';
 import Image from './Image';
 import ListCards from './ListCards';
@@ -7,6 +8,7 @@ import PosterInfos from './PosterInfos';
 
 export {
   Banner,
+  Cast,
   Card,
   Image,
   ListCards,
