@@ -10,11 +10,36 @@
   padding: 0 96px;
 
   background-color: $color-primary;
-
+  z-index: 1;
+  
   .brand-name {
     color: $color-white;
     font-size: 24px;
     font-weight: bold;
     text-decoration: none;
+  }
+
+  .MuiInputBase-root {
+    height: 36px;
+    width: 420px;
+    max-width: 100%;
+    color: $color-white;
+
+    .MuiOutlinedInput-notchedOutline {
+      border-color: $color-white;
+    }
+  }
+
+  .MuiInputLabel-outlined {
+    transform: translate(14px, 12px) scale(1);
+  }
+
+  .Mui-focused {
+    color: $color-white!important;
+
+    .MuiOutlinedInput-notchedOutline {
+      border-color: $color-white!important;
+      border-width: 1px!important;
+    }
   }
 }

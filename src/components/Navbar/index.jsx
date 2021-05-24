@@ -4,6 +4,9 @@ import { Link, useHistory } from 'react-router-dom';
 import {
   TextField, Button,
 } from '@material-ui/core';
+import {
+  ExpandMore,
+} from '@material-ui/icons';
 
 import debounce from '../../utils/debounce';
 
@@ -28,13 +31,16 @@ const Navbar = () => {
     <div className="navbar">
       <Link to="/" className="brand-name">Site Name</Link>
       <TextField
-        ref={searchInput}
+        inputRef={searchInput}
         name="search"
+        label="Search"
         variant="outlined"
-        placeholder="Search"
         onChange={((e) => searchContent(e.target.value))}
       />
-      <Button>EN</Button>
+      <Button variant="outlined">
+        EN
+        <ExpandMore />
+      </Button>
     </div>
   );
 };
