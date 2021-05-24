@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { Banner, Cast, PosterInfos } from '../../components';
+import {
+  Banner, Cast, PosterInfos, Recommendations,
+} from '../../components';
 
 import {
   apiGetMovieById, apiGetMovieRecommendations, apiGetMovieCredits,
@@ -10,7 +12,7 @@ import {
 const Movie = () => {
   const { id: movieId } = useParams();
   const [movie, setMovie] = useState({});
-  const [, setRecommendations] = useState([]);
+  const [recommendations, setRecommendations] = useState([]);
   const [credits, setCredits] = useState({});
 
   const loadExtraInfos = () => {
@@ -26,6 +28,11 @@ const Movie = () => {
   };
 
   useEffect(() => {
+    setMovie({});
+    setRecommendations([]);
+    setCredits({});
+    window.scrollTo(0, 0);
+
     apiGetMovieById(movieId)
       .then((data) => {
         setMovie(data);
@@ -54,6 +61,7 @@ const Movie = () => {
         revenue={movie.revenue}
       />
       <Cast cast={credits.cast} />
+      <Recommendations recommendations={recommendations} type="movie" />
     </div>
   );
 };

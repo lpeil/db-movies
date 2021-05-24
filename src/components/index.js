@@ -5,6 +5,7 @@ import Image from './Image';
 import ListCards from './ListCards';
 import Navbar from './Navbar';
 import PosterInfos from './PosterInfos';
+import Recommendations from './Recommendations';
 
 export {
   Banner,
@@ -14,4 +15,5 @@ export {
   ListCards,
   Navbar,
   PosterInfos,
+  Recommendations,
 };
