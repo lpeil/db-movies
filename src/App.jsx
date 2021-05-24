@@ -1,14 +1,16 @@
 import React from 'react';
 import { Provider } from 'react-redux';
+import { ThemeProvider } from '@material-ui/core/styles';
 
 import store from './store';
+import theme from './stylesheets/theme';
 import Routes from './routes';
 
 const App = () => (
   <Provider store={store}>
-    <div className="app">
+    <ThemeProvider theme={theme}>
       <Routes />
-    </div>
+    </ThemeProvider>
   </Provider>
 );
 

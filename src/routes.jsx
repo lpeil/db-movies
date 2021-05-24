@@ -11,12 +11,14 @@ import { Navbar } from './components';
 const Routes = () => (
   <BrowserRouter>
     <Navbar />
-    <Switch>
-      <Route path="/" exact component={HomePage} />
-      <Route path="/movie/:id" exact component={MoviePage} />
-      <Route path="/search/:text" exact component={SearchPage} />
-      <Route path="*" component={NotFoundPage} />
-    </Switch>
+    <div className="app">
+      <Switch>
+        <Route path="/" exact component={HomePage} />
+        <Route path="/movie/:id" exact component={MoviePage} />
+        <Route path="/search/:text" exact component={SearchPage} />
+        <Route path="*" component={NotFoundPage} />
+      </Switch>
+    </div>
   </BrowserRouter>
 );
 

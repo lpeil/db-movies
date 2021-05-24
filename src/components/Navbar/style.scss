@@ -1,9 +1,20 @@
 .navbar {
   position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   
   height: 75px;
-  width: 100%;
+  width: calc(100% - 192px);
   top: 0;
+  padding: 0 96px;
 
   background-color: $color-primary;
+
+  .brand-name {
+    color: $color-white;
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+  }
 }
