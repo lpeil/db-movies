@@ -56,13 +56,13 @@ const PosterInfos = ({
           <tr>
             <th>Budget</th>
             <td>
-              {toMoney(budget)}
+              {toMoney(budget) || '-'}
             </td>
           </tr>
           <tr>
             <th>Revenue</th>
             <td>
-              {toMoney(revenue)}
+              {toMoney(revenue) || '-'}
             </td>
           </tr>
         </tbody>
