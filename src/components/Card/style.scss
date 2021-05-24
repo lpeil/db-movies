@@ -1,0 +1,50 @@
+.card {
+  position: relative;
+
+  &.movie {
+    cursor: pointer;
+  }
+
+  &.size-medium {
+    width: 200px;
+    height: 300px;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .bottom-name {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    width: 100%;
+    height: 60px;
+    bottom: 0;
+    left: 0;
+
+    background: linear-gradient(360deg, #121212 0%, rgba(18, 18, 18, 0.81) 52.08%, rgba(18, 18, 18, 0) 100%);
+    opacity: 0;
+    transition: .25s;
+
+    span {
+      max-width: 80%;
+
+      color: $color-white;
+      text-align: center;
+      font-size: 14px;
+    }
+  }
+
+  &:hover {
+    .bottom-name {
+      opacity: 1;
+    }
+  }
+}

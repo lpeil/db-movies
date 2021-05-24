@@ -10,4 +10,7 @@ html, body {
 
 .app {
   margin-top: 75px;
+  
+  width: calc(100% - 288px);
+  padding: 0 144px;
 }

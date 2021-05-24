@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 import { apiGetTrending } from '../../services/trending';
 import { addMoreMovies } from '../../store/modules/movies/actions';
+
+import { Card } from '../../components';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -21,9 +22,7 @@ const Home = () => {
   return (
     <div>
       {movies.map((movie) => (
-        <Link to={`/movie/${movie.id}`} key={movie.id}>
-          <h1>{movie.title}</h1>
-        </Link>
+        <Card key={movie.id} data={movie} type="movie" />
       ))}
     </div>
   );
