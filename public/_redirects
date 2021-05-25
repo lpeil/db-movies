@@ -1,0 +1,2 @@
+http://db-movies.netlify.app/* https://db-movies.netlify.app/:splat 301!
+/* /index.html 200
