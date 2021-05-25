@@ -30,13 +30,15 @@ const Navbar = () => {
   return (
     <div className="navbar">
       <Link to="/" className="brand-name">Site Name</Link>
-      <TextField
-        inputRef={searchInput}
-        name="search"
-        label="Search"
-        variant="outlined"
-        onChange={((e) => searchContent(e.target.value))}
-      />
+      <div className="search-container">
+        <TextField
+          inputRef={searchInput}
+          name="search"
+          label="Search"
+          variant="outlined"
+          onChange={((e) => searchContent(e.target.value))}
+        />
+      </div>
       <Button variant="outlined" color="primary">
         EN
         <ExpandMore />

@@ -29,4 +29,29 @@
   .MuiInputLabel-outlined {
     transform: translate(14px, 12px) scale(1);
   }
+
+  @media screen and (max-width: $md) {
+    height: 28px;
+    padding: 12px 48px 52px;
+    width: calc(100% - 96px);
+
+    .brand-name {
+      font-size: 18px;
+    }
+
+    button {
+      padding: 0;
+    }
+
+    .search-container {
+      position: absolute;
+
+      width: calc(100% - 96px);
+      bottom: 12px;
+
+      .MuiFormControl-root, .MuiInputBase-root {
+        width: 100%;
+      }
+    }
+  }
 }
