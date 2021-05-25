@@ -19,7 +19,7 @@ const Recommendations = ({ recommendations, type }) => {
 
   function setQuantityOfItems() {
     let cardsPerLine = Math.floor(containerDiv.current?.offsetWidth / 220);
-    if (cardsPerLine > 10) cardsPerLine = 10;
+    if (cardsPerLine > recommendations.length) cardsPerLine = recommendations.length;
     if (cardsPerLine < 1) cardsPerLine = 1;
 
     setSlidesToShow(cardsPerLine);
@@ -31,7 +31,7 @@ const Recommendations = ({ recommendations, type }) => {
 
   useEffect(() => {
     setQuantityOfItems();
-  }, []);
+  }, [recommendations]);
 
   return (
     <div className="recommendation" ref={containerDiv}>
