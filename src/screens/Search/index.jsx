@@ -10,6 +10,8 @@ const Home = () => {
 
   const [movies, setMovies] = useState([]);
   const [tvShows, setTvShows] = useState([]);
+  const [loadingMovies, setLoadingMovies] = useState(true);
+  const [loadingTvShows, setLoadingTvShows] = useState(true);
 
   const itemsPerPage = 14;
 
@@ -17,11 +19,13 @@ const Home = () => {
     apiSearchMovies(1, 'movie', text)
       .then((data) => {
         setMovies(data.results);
+        setLoadingMovies(false);
       });
 
     apiSearchMovies(1, 'tv', text)
       .then((data) => {
         setTvShows(data.results);
+        setLoadingTvShows(false);
       });
   }, [text]);
 
@@ -35,6 +39,7 @@ const Home = () => {
         apiGet={apiSearchMovies}
         listItems={movies}
         query={text}
+        loading={loadingMovies}
       />
       <ListCards
         type="tv"
@@ -44,6 +49,7 @@ const Home = () => {
         apiGet={apiSearchMovies}
         listItems={tvShows}
         query={text}
+        loading={loadingTvShows}
       />
     </div>
   );

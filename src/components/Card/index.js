@@ -21,7 +21,7 @@ const Card = ({
     >
       {
       loading
-        ? null
+        ? <div className="loading" />
         : <Image path={data.poster_path} alt={type === 'movie' ? data.title : data.name} />
     }
       {

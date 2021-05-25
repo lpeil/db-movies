@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { ListCards } from '../../components';
@@ -11,6 +11,8 @@ const Home = () => {
   const dispatch = useDispatch();
   const movies = useSelector((state) => state.movies);
   const tvShows = useSelector((state) => state.tvShows);
+  const [loadingMovies, setLoadingMovies] = useState(true);
+  const [loadingTvShows, setLoadingTvShows] = useState(true);
 
   const itemsPerPage = 14;
 
@@ -18,11 +20,13 @@ const Home = () => {
     apiGetTrending(1)
       .then((data) => {
         dispatch(addMoreMovies(data.results));
+        setLoadingMovies(false);
       });
 
     apiGetTrending(1, 'tv')
       .then((data) => {
         dispatch(addMoreTvShows(data.results));
+        setLoadingTvShows(false);
       });
   }, []);
 
@@ -36,6 +40,7 @@ const Home = () => {
         apiGet={apiGetTrending}
         listItems={movies}
         query="week"
+        loading={loadingMovies}
       />
       <ListCards
         type="tv"
@@ -45,6 +50,7 @@ const Home = () => {
         apiGet={apiGetTrending}
         listItems={tvShows}
         query="week"
+        loading={loadingTvShows}
       />
     </div>
   );

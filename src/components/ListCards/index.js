@@ -9,7 +9,7 @@ import { addMoreMovies } from '../../store/modules/movies/actions';
 import { addMoreTvShows } from '../../store/modules/tvShows/actions';
 
 const ListCards = ({
-  type, title, module, apiGet, listItems, query, lines,
+  type, title, module, apiGet, listItems, query, lines, loading,
 }) => {
   const dispatch = useDispatch();
   const [items, setItems] = useState([]);
@@ -18,6 +18,7 @@ const ListCards = ({
   const [apiPage, setApiPage] = useState(1);
   const [loadedAll, setLoadedAll] = useState(false);
   const [itemsPerPage, setItemsPerPage] = useState(14);
+  const [loadingMore, setLoadingMore] = useState(false);
   const containerDiv = useRef();
 
   function setQuantityOfItems() {
@@ -48,9 +49,11 @@ const ListCards = ({
     setQuantityOfItems();
   }, []);
 
-  const loadMore = () => {
+  const loadMore = async () => {
+    setLoadingMore(true);
+
     if (items.length < itemsPerPage * (page + 1)) {
-      apiGet((apiPage + 1), type, query)
+      await apiGet((apiPage + 1), type, query)
         .then((data) => {
           if (module === 'disable') {
             setItems(items.concat(data.results));
@@ -65,6 +68,7 @@ const ListCards = ({
         });
     }
 
+    setLoadingMore(false);
     setPage(page + 1);
   };
 
@@ -72,13 +76,18 @@ const ListCards = ({
     <div className="list-cards" ref={containerDiv}>
       <h1>{title}</h1>
       {
-        items.length
+        items.length || loading || loadingMore
           ? (
             <>
               <Grid container direction="row" spacing={2} justify="space-around">
                 {items.slice(0, (itemsPerPage * page)).map((item) => (
                   <Grid item key={item.id}>
                     <Card data={item} type={type} />
+                  </Grid>
+                ))}
+                {(loading || loadingMore) && [...Array(itemsPerPage)].map((item, key) => (
+                  <Grid item key={key}>
+                    <Card loading />
                   </Grid>
                 ))}
               </Grid>
@@ -108,12 +117,14 @@ ListCards.propTypes = {
   apiGet: PropTypes.func.isRequired,
   listItems: PropTypes.array,
   query: PropTypes.string,
+  loading: PropTypes.bool,
 };
 
 ListCards.defaultProps = {
   listItems: [],
   query: '',
   lines: 2,
+  loading: false,
 };
 
 export default ListCards;
