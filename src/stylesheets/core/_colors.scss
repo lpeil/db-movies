@@ -3,3 +3,9 @@ $color-secondary: #9F829D;
 $color-alternative: #7D6B86;
 $color-dark: #121212;
 $color-white: #E8E7DC;
+
+.no-data {
+  color: darken($color-white, 50);
+  text-align: center;
+  font-weight: normal;
+}
