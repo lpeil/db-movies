@@ -9,3 +9,8 @@
     opacity: 1;
   }
 }
+
+.loader {
+  background-color: lighten($color-dark, 20);
+  animation: pulse 1.5s ease-in-out 0.5s infinite;
+}

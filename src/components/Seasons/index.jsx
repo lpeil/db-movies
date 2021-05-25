@@ -12,7 +12,7 @@ import Image from '../Image';
 
 import { apiGetTvSeason } from '../../services/tvShow';
 
-const Seasons = ({ seasons, tvShowId }) => {
+const Seasons = ({ seasons, tvShowId, loading }) => {
   const [config, setConfig] = useState({});
   const [episodes, setEpisodes] = useState({});
 
@@ -63,6 +63,19 @@ const Seasons = ({ seasons, tvShowId }) => {
     <div className="seasons">
       <h1>Seasons</h1>
       <Grid container direction="row">
+        {loading && [...Array(2)].map((item, key) => (
+          <Grid item xs={12} md={6} key={key}>
+            <div className="season-card loading">
+              <div className="season-poster loader" />
+              <div className="season-infos">
+                <div className="loader title" />
+                <div className="loader" />
+                <div className="loader" />
+                <div className="loader" />
+              </div>
+            </div>
+          </Grid>
+        ))}
         {seasons.map((season) => (
           <Grid item xs={12} md={6} key={season.id}>
             <div className="season-card">
@@ -170,11 +183,13 @@ const Seasons = ({ seasons, tvShowId }) => {
 Seasons.propTypes = {
   seasons: PropTypes.array,
   tvShowId: PropTypes.string,
+  loading: PropTypes.bool,
 };
 
 Seasons.defaultProps = {
   seasons: [],
   tvShowId: '',
+  loading: false,
 };
 
 export default Seasons;

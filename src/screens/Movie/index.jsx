@@ -14,6 +14,7 @@ const Movie = () => {
   const [movie, setMovie] = useState({});
   const [recommendations, setRecommendations] = useState([]);
   const [credits, setCredits] = useState({});
+  const [loading, setLoading] = useState(true);
 
   const loadExtraInfos = () => {
     apiGetMovieRecommendations(movieId)
@@ -28,6 +29,7 @@ const Movie = () => {
   };
 
   useEffect(() => {
+    setLoading(true);
     setMovie({});
     setRecommendations([]);
     setCredits({});
@@ -36,6 +38,7 @@ const Movie = () => {
     apiGetMovieById(movieId)
       .then((data) => {
         setMovie(data);
+        setLoading(false);
         loadExtraInfos();
       });
   }, [movieId]);
@@ -47,8 +50,13 @@ const Movie = () => {
         title={movie.title}
         voteAverage={movie.vote_average / 2}
         voteCount={movie.vote_count}
+        loading={loading}
       />
-      <p className="sinopse">{movie.overview}</p>
+      {
+        loading
+          ? <div className="loader sinopse" />
+          : <p className="sinopse">{movie.overview}</p>
+      }
       <PosterInfos
         type="movie"
         director={credits.crew && credits.crew.filter((crew) => crew.job === 'Director')[0]?.name}
@@ -60,6 +68,7 @@ const Movie = () => {
         releaseDate={movie.release_date}
         budget={movie.budget}
         revenue={movie.revenue}
+        loading={loading}
       />
       <Cast cast={credits.cast} />
       <Recommendations recommendations={recommendations} type="movie" />

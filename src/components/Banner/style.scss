@@ -4,6 +4,32 @@
   width: 100%;
   height: 550px;
 
+  &.loading {
+    .loader {
+      &.h1 {
+        height: 64px;
+        width: 500px;
+        max-width: 100%;
+        margin-bottom: 10px;
+
+        border-radius: 32px;
+
+        @media screen and (max-width: $md) {
+          height: 32px;
+          border-radius: 16px;
+        }
+      }
+
+      &.rating {
+        height: 24px;
+        width: 300px;
+        max-width: 80%;
+
+        border-radius: 12px;
+      }
+    }
+  }
+
   img {
     width: 100%;
     height: 100%;

@@ -15,6 +15,14 @@
     td {
       padding-left: 24px;
     }
+
+    .loader {
+      width: 150px;
+      max-width: 100%;
+      height: 24px;
+
+      border-radius: 12px;
+    }
     
     @media screen and (max-width: $md) {
       font-size: 16px;
@@ -27,8 +35,11 @@
   }
 }
 
-@media screen and (max-width: $sm) {
-  .poster-image img {
+.poster-image img, .poster-image .image-container {
+  width: 200px;
+  height: 300px;
+
+  @media screen and (max-width: $sm) {
     width: 115px;
     height: 175px;
   }

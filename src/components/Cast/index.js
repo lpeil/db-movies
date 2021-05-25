@@ -17,7 +17,7 @@ const Cast = ({ cast }) => {
 
   function setQuantityOfItems() {
     let cardsPerLine = Math.floor(containerDiv.current?.offsetWidth / 220);
-    if (cardsPerLine > 10) cardsPerLine = 10;
+    if (cardsPerLine > cast.length) cardsPerLine = cast.length;
     if (cardsPerLine < 1) cardsPerLine = 1;
 
     setSlidesToShow(cardsPerLine);
@@ -29,7 +29,7 @@ const Cast = ({ cast }) => {
 
   useEffect(() => {
     setQuantityOfItems();
-  }, []);
+  }, [cast]);
 
   return (
     <div className="cast" ref={containerDiv}>

@@ -9,7 +9,7 @@ import toTime from '../../utils/toTime';
 
 const PosterInfos = ({
   posterPath, title, originalTitle, genres, runtime, director, releaseDate,
-  budget, revenue, type, seasons, episodes,
+  budget, revenue, type, seasons, episodes, loading,
 }) => (
   <Grid container direction="row" className="poster-infos">
     <Grid item className="poster-image">
@@ -21,30 +21,34 @@ const PosterInfos = ({
           <tr>
             <th>Original Title</th>
             <td>
-              {originalTitle}
+              {loading ? (<div className="loader" />) : originalTitle}
             </td>
           </tr>
           <tr>
             <th>Genre</th>
             <td>
-              {genres && genres.map((genre, key) => (
-                <span key={genre.id}>
-                  {genre.name}
-                  {genres.length !== key + 1 ? ', ' : ''}
-                </span>
-              ))}
+              {loading
+                ? (<div className="loader" />)
+                : genres && genres.map((genre, key) => (
+                  <span key={genre.id}>
+                    {genre.name}
+                    {genres.length !== key + 1 ? ', ' : ''}
+                  </span>
+                ))}
             </td>
           </tr>
           <tr>
             <th>Duration</th>
             <td>
-              {runtime && `${toTime(runtime)}${type === 'tv' ? '/ep' : ''}`}
+              {loading
+                ? (<div className="loader" />)
+                : runtime && `${toTime(runtime)}${type === 'tv' ? '/ep' : ''}`}
             </td>
           </tr>
           <tr>
             <th>Release</th>
             <td>
-              {releaseDate}
+              {loading ? (<div className="loader" />) : releaseDate}
             </td>
           </tr>
           {
@@ -54,19 +58,19 @@ const PosterInfos = ({
                   <tr>
                     <th>Direction</th>
                     <td>
-                      {director}
+                      {loading ? (<div className="loader" />) : director}
                     </td>
                   </tr>
                   <tr>
                     <th>Budget</th>
                     <td>
-                      {toMoney(budget) || '-'}
+                      {loading ? (<div className="loader" />) : toMoney(budget) || '-'}
                     </td>
                   </tr>
                   <tr>
                     <th>Revenue</th>
                     <td>
-                      {toMoney(revenue) || '-'}
+                      {loading ? (<div className="loader" />) : toMoney(revenue) || '-'}
                     </td>
                   </tr>
                 </>
@@ -76,13 +80,13 @@ const PosterInfos = ({
                   <tr>
                     <th>Seasons</th>
                     <td>
-                      {seasons}
+                      {loading ? (<div className="loader" />) : seasons}
                     </td>
                   </tr>
                   <tr>
                     <th>Episodes</th>
                     <td>
-                      {episodes}
+                      {loading ? (<div className="loader" />) : episodes}
                     </td>
                   </tr>
                 </>
@@ -107,6 +111,7 @@ PosterInfos.propTypes = {
   type: PropTypes.string,
   seasons: PropTypes.number,
   episodes: PropTypes.number,
+  loading: PropTypes.bool,
 };
 
 PosterInfos.defaultProps = {
@@ -122,6 +127,7 @@ PosterInfos.defaultProps = {
   type: 'movie',
   seasons: 0,
   episodes: 0,
+  loading: false,
 };
 
 export default PosterInfos;

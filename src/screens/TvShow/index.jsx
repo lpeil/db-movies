@@ -14,6 +14,7 @@ const TvShow = () => {
   const [tvShow, setTvShow] = useState({});
   const [recommendations, setRecommendations] = useState([]);
   const [credits, setCredits] = useState({});
+  const [loading, setLoading] = useState(true);
 
   const loadExtraInfos = () => {
     apiGetTvRecommendations(tvShowId)
@@ -28,6 +29,7 @@ const TvShow = () => {
   };
 
   useEffect(() => {
+    setLoading(true);
     setTvShow({});
     setRecommendations([]);
     setCredits({});
@@ -35,6 +37,7 @@ const TvShow = () => {
 
     apiGetTvById(tvShowId)
       .then((data) => {
+        setLoading(false);
         setTvShow(data);
         loadExtraInfos();
       });
@@ -47,8 +50,13 @@ const TvShow = () => {
         title={tvShow.name}
         voteAverage={tvShow.vote_average / 2}
         voteCount={tvShow.vote_count}
+        loading={loading}
       />
-      <p className="sinopse">{tvShow.overview}</p>
+      {
+        loading
+          ? <div className="loader sinopse" />
+          : <p className="sinopse">{tvShow.overview}</p>
+      }
       <PosterInfos
         type="tv"
         director={credits.crew && credits.crew.filter((crew) => crew.job === 'Director')[0]?.name}
@@ -69,8 +77,9 @@ const TvShow = () => {
         }
         seasons={tvShow.number_of_seasons}
         episodes={tvShow.number_of_episodes}
+        loading={loading}
       />
-      <Seasons seasons={tvShow.seasons} tvShowId={tvShowId} />
+      <Seasons seasons={tvShow.seasons} tvShowId={tvShowId} loading={loading} />
       <Cast cast={credits.cast} />
       <Recommendations recommendations={recommendations} type="tv" />
     </div>
