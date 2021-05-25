@@ -3,10 +3,10 @@ import { Link, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import {
-  TextField, Button, Menu, MenuItem,
+  OutlinedInput, Button, Menu, MenuItem, InputAdornment, FormControl, InputLabel,
 } from '@material-ui/core';
 import {
-  ExpandMore,
+  ExpandMore, Search as SearchIcon,
 } from '@material-ui/icons';
 
 import debounce from '../../utils/debounce';
@@ -38,13 +38,22 @@ const Navbar = () => {
       <div className="navbar-content">
         <Link to="/" className="brand-name">{t('site.name')}</Link>
         <div className="search-container">
-          <TextField
-            inputRef={searchInput}
-            name="search"
-            label={t('inputs.search')}
-            variant="outlined"
-            onChange={((e) => searchContent(e.target.value))}
-          />
+          <FormControl>
+            <InputLabel htmlFor="input-search">{t('inputs.search')}</InputLabel>
+            <OutlinedInput
+              htmlFor="input-search"
+              inputRef={searchInput}
+              name="search"
+              label={t('inputs.search')}
+              variant="outlined"
+              onChange={((e) => searchContent(e.target.value))}
+              endAdornment={(
+                <InputAdornment position="end">
+                  <SearchIcon />
+                </InputAdornment>
+            )}
+            />
+          </FormControl>
         </div>
         <Button
           variant="outlined"
