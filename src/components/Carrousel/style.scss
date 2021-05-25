@@ -11,3 +11,20 @@
 .arrow.next {
   right: -45px;
 }
+
+@media screen and (max-width: $md){
+  .arrow {
+    top: calc(100% - 30px);
+  }
+
+  .slick-slider {
+    padding-bottom: 30px;
+  }
+
+  .arrow.prev {
+    left: 0px;
+  }
+  .arrow.next {
+    right: 0px;
+  }
+}

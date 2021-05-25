@@ -1,5 +1,6 @@
 .seasons {
-  margin-bottom: 36px;
+  margin-top: 36px;
+  margin-bottom: -24px;
 
   h1 {
     color: $color-white;
@@ -123,6 +124,26 @@
       
       span {
         font-size: 14px;
+      }
+    }
+
+    @media screen and (max-width: $sm) {
+      flex-direction: column;
+      align-items: center;
+
+      width: 100%;
+
+      .episode-image img {
+        width: 150px;
+        height: 100px;
+      }
+
+      .episode-infos {
+        margin: 0;
+
+        .episode-title {
+          margin-bottom: 4px;
+        }
       }
     }
   }

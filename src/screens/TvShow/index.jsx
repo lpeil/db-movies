@@ -49,7 +49,6 @@ const TvShow = () => {
         voteCount={tvShow.vote_count}
       />
       <p className="sinopse">{tvShow.overview}</p>
-      <Seasons seasons={tvShow.seasons} tvShowId={tvShowId} />
       <PosterInfos
         type="tv"
         director={credits.crew && credits.crew.filter((crew) => crew.job === 'Director')[0]?.name}
@@ -71,6 +70,7 @@ const TvShow = () => {
         seasons={tvShow.number_of_seasons}
         episodes={tvShow.number_of_episodes}
       />
+      <Seasons seasons={tvShow.seasons} tvShowId={tvShowId} />
       <Cast cast={credits.cast} />
       <Recommendations recommendations={recommendations} type="tv" />
     </div>

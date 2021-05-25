@@ -11,12 +11,12 @@ const PosterInfos = ({
   posterPath, title, originalTitle, genres, runtime, director, releaseDate,
   budget, revenue, type, seasons, episodes,
 }) => (
-  <Grid container direction="row">
-    <Grid item>
+  <Grid container direction="row" className="poster-infos">
+    <Grid item className="poster-image">
       <Image path={posterPath} alt={title} size="w200" />
     </Grid>
     <Grid item>
-      <table border="0" className="poster-infos">
+      <table border="0" className="infos">
         <tbody>
           <tr>
             <th>Original Title</th>
