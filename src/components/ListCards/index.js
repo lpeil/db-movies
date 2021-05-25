@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 
@@ -9,7 +9,7 @@ import { addMoreMovies } from '../../store/modules/movies/actions';
 import { addMoreTvShows } from '../../store/modules/tvShows/actions';
 
 const ListCards = ({
-  itemsPerPage, type, title, module, apiGet, listItems, query,
+  type, title, module, apiGet, listItems, query, lines,
 }) => {
   const dispatch = useDispatch();
   const [items, setItems] = useState([]);
@@ -17,6 +17,16 @@ const ListCards = ({
   const [page, setPage] = useState(1);
   const [apiPage, setApiPage] = useState(1);
   const [loadedAll, setLoadedAll] = useState(false);
+  const [itemsPerPage, setItemsPerPage] = useState(14);
+  const containerDiv = useRef();
+
+  function setQuantityOfItems() {
+    let cardsPerLine = Math.floor(containerDiv.current?.offsetWidth / 220);
+    if (cardsPerLine > 10) cardsPerLine = 10;
+    if (cardsPerLine < 1) cardsPerLine = 1;
+
+    setItemsPerPage(cardsPerLine * lines);
+  }
 
   useEffect(() => {
     if (listItems) {
@@ -29,6 +39,14 @@ const ListCards = ({
     setPage(1);
     setApiPage(1);
   }, [query]);
+
+  useEffect(() => {
+    window.addEventListener('resize', setQuantityOfItems);
+  });
+
+  useEffect(() => {
+    setQuantityOfItems();
+  }, []);
 
   const loadMore = () => {
     if (items.length < itemsPerPage * (page + 1)) {
@@ -51,13 +69,13 @@ const ListCards = ({
   };
 
   return (
-    <div className="list-cards">
+    <div className="list-cards" ref={containerDiv}>
       <h1>{title}</h1>
       {
         items.length
           ? (
             <>
-              <Grid container direction="row" spacing={2}>
+              <Grid container direction="row" spacing={2} justify="space-around">
                 {items.slice(0, (itemsPerPage * page)).map((item) => (
                   <Grid item key={item.id}>
                     <Card data={item} type={type} />
@@ -83,7 +101,7 @@ const ListCards = ({
 };
 
 ListCards.propTypes = {
-  itemsPerPage: PropTypes.number,
+  lines: PropTypes.number,
   type: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   module: PropTypes.string.isRequired,
@@ -93,9 +111,9 @@ ListCards.propTypes = {
 };
 
 ListCards.defaultProps = {
-  itemsPerPage: 14,
   listItems: [],
   query: '',
+  lines: 2,
 };
 
 export default ListCards;
