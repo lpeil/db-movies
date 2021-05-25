@@ -8,8 +8,8 @@ import Image from '../Image';
 const Cast = ({ cast }) => {
   const sliderSettings = {
     dots: false,
-    slidesToShow: 7,
-    slidesToScroll: 7,
+    slidesToShow: cast.length < 7 ? cast.length : 7,
+    slidesToScroll: cast.length < 7 ? cast.length : 7,
     nextArrow: <Arrow direction="next" />,
     prevArrow: <Arrow direction="prev" />,
   };

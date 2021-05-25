@@ -9,14 +9,14 @@ import toTime from '../../utils/toTime';
 
 const PosterInfos = ({
   posterPath, title, originalTitle, genres, runtime, director, releaseDate,
-  budget, revenue,
+  budget, revenue, type, seasons, episodes,
 }) => (
   <Grid container direction="row">
     <Grid item>
       <Image path={posterPath} alt={title} size="w200" />
     </Grid>
     <Grid item>
-      <table border="0">
+      <table border="0" className="poster-infos">
         <tbody>
           <tr>
             <th>Original Title</th>
@@ -38,13 +38,7 @@ const PosterInfos = ({
           <tr>
             <th>Duration</th>
             <td>
-              {runtime && toTime(runtime)}
-            </td>
-          </tr>
-          <tr>
-            <th>Direction</th>
-            <td>
-              {director}
+              {runtime && `${toTime(runtime)}${type === 'tv' ? '/ep' : ''}`}
             </td>
           </tr>
           <tr>
@@ -53,18 +47,47 @@ const PosterInfos = ({
               {releaseDate}
             </td>
           </tr>
-          <tr>
-            <th>Budget</th>
-            <td>
-              {toMoney(budget) || '-'}
-            </td>
-          </tr>
-          <tr>
-            <th>Revenue</th>
-            <td>
-              {toMoney(revenue) || '-'}
-            </td>
-          </tr>
+          {
+            type === 'movie'
+              ? (
+                <>
+                  <tr>
+                    <th>Direction</th>
+                    <td>
+                      {director}
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Budget</th>
+                    <td>
+                      {toMoney(budget) || '-'}
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Revenue</th>
+                    <td>
+                      {toMoney(revenue) || '-'}
+                    </td>
+                  </tr>
+                </>
+              )
+              : (
+                <>
+                  <tr>
+                    <th>Seasons</th>
+                    <td>
+                      {seasons}
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Episodes</th>
+                    <td>
+                      {episodes}
+                    </td>
+                  </tr>
+                </>
+              )
+          }
         </tbody>
       </table>
     </Grid>
@@ -81,11 +104,14 @@ PosterInfos.propTypes = {
   releaseDate: PropTypes.string,
   budget: PropTypes.number,
   revenue: PropTypes.number,
+  type: PropTypes.string,
+  seasons: PropTypes.number,
+  episodes: PropTypes.number,
 };
 
 PosterInfos.defaultProps = {
   genres: [],
-  director: '',
+  director: '-',
   releaseDate: '',
   originalTitle: '',
   posterPath: '',
@@ -93,6 +119,9 @@ PosterInfos.defaultProps = {
   budget: 0,
   revenue: 0,
   runtime: 0,
+  type: 'movie',
+  seasons: 0,
+  episodes: 0,
 };
 
 export default PosterInfos;

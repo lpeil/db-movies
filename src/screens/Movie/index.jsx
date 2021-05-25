@@ -50,6 +50,7 @@ const Movie = () => {
       />
       <p className="sinopse">{movie.overview}</p>
       <PosterInfos
+        type="movie"
         director={credits.crew && credits.crew.filter((crew) => crew.job === 'Director')[0]?.name}
         posterPath={movie.poster_path}
         title={movie.title}
