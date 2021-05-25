@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import {
-  Banner, Cast, PosterInfos, Recommendations,
+  Banner, Cast, PosterInfos, Recommendations, Seasons,
 } from '../../components';
 
 import {
@@ -10,18 +10,18 @@ import {
 } from '../../services/tvShow';
 
 const TvShow = () => {
-  const { id: tvId } = useParams();
+  const { id: tvShowId } = useParams();
   const [tvShow, setTvShow] = useState({});
   const [recommendations, setRecommendations] = useState([]);
   const [credits, setCredits] = useState({});
 
   const loadExtraInfos = () => {
-    apiGetTvRecommendations(tvId)
+    apiGetTvRecommendations(tvShowId)
       .then((data) => {
         setRecommendations(data.results);
       });
 
-    apiGetTvCredits(tvId)
+    apiGetTvCredits(tvShowId)
       .then((data) => {
         setCredits(data);
       });
@@ -33,12 +33,12 @@ const TvShow = () => {
     setCredits({});
     window.scrollTo(0, 0);
 
-    apiGetTvById(tvId)
+    apiGetTvById(tvShowId)
       .then((data) => {
         setTvShow(data);
         loadExtraInfos();
       });
-  }, [tvId]);
+  }, [tvShowId]);
 
   return (
     <div className="tv-show-screen">
@@ -49,6 +49,7 @@ const TvShow = () => {
         voteCount={tvShow.vote_count}
       />
       <p className="sinopse">{tvShow.overview}</p>
+      <Seasons seasons={tvShow.seasons} tvShowId={tvShowId} />
       <PosterInfos
         type="tv"
         director={credits.crew && credits.crew.filter((crew) => crew.job === 'Director')[0]?.name}

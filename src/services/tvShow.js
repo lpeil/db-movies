@@ -11,3 +11,7 @@ export const apiGetTvRecommendations = (id) => (
 export const apiGetTvCredits = (id) => (
   api.get(`/tv/${id}/credits`).then((response) => response.data)
 );
+
+export const apiGetTvSeason = (id, season) => (
+  api.get(`/tv/${id}/season/${season}`).then((response) => response.data)
+);
