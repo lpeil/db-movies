@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ListCards } from '../../components';
 
 import { apiGetTrending } from '../../services/trending';
-import { addMoreMovies } from '../../store/modules/movies/actions';
-import { addMoreTvShows } from '../../store/modules/tvShows/actions';
+import { addMoreMovies, clearMovies } from '../../store/modules/movies/actions';
+import { addMoreTvShows, clearTvShows } from '../../store/modules/tvShows/actions';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -17,6 +17,16 @@ const Home = () => {
   const itemsPerPage = 14;
 
   useEffect(() => {
+    setLoadingTvShows(true);
+    setLoadingMovies(true);
+
+    if (movies.length) {
+      dispatch(clearMovies());
+    }
+    if (tvShows.length) {
+      dispatch(clearTvShows());
+    }
+
     apiGetTrending(1)
       .then((data) => {
         dispatch(addMoreMovies(data.results));
