@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { Grid } from '@material-ui/core';
@@ -53,6 +53,11 @@ const Seasons = ({ seasons, tvShowId }) => {
 
     setEpisodes(copy);
   };
+
+  useEffect(() => {
+    setConfig({});
+    setEpisodes({});
+  }, [tvShowId]);
 
   return (
     <div className="seasons">
