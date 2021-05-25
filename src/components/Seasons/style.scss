@@ -40,12 +40,6 @@
         font-size: 14px;
       }
 
-      .overview-expand {
-        font-weight: bold;
-        text-decoration: underline;
-        cursor: pointer;
-      }
-
       button {
         display: flex;
         align-items: center;
@@ -67,11 +61,17 @@
     }
   }
 
+  .overview-expand {
+    font-weight: bold;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
   .episode-card {
     display: flex;
     flex-direction: row;
 
-    width: 100%;
+    width: 90%;
     margin-bottom: 14px;
 
     color: $color-white;

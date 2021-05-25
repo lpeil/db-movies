@@ -26,7 +26,7 @@ const Seasons = ({ seasons, tvShowId }) => {
     setConfig(copy);
   };
 
-  const expandEpisode = (seasonNumber) => {
+  const expandSeason = (seasonNumber) => {
     const copy = { ...config };
 
     if (!copy[seasonNumber]) copy[seasonNumber] = {};
@@ -44,6 +44,14 @@ const Seasons = ({ seasons, tvShowId }) => {
     }
 
     setConfig(copy);
+  };
+
+  const expandEpisode = (seasonNumber, key) => {
+    const copy = { ...episodes };
+
+    copy[seasonNumber][key].allOverview = true;
+
+    setEpisodes(copy);
   };
 
   return (
@@ -81,7 +89,7 @@ const Seasons = ({ seasons, tvShowId }) => {
                     : 'No description'
                 }
                 </span>
-                <button type="button" onClick={() => expandEpisode(season.season_number)}>
+                <button type="button" onClick={() => expandSeason(season.season_number)}>
                   {
                     config[season.season_number]?.showEpisodes
                       ? (
@@ -106,7 +114,7 @@ const Seasons = ({ seasons, tvShowId }) => {
                   <div className="season-episodes">
                     {
                       episodes[season.season_number]
-                      && episodes[season.season_number].map((episode) => (
+                      && episodes[season.season_number].map((episode, key) => (
                         <div className="episode-card" key={episode.id}>
                           <div className="episode-image">
                             <Image path={episode.still_path} alt={episode.name} size="w200" />
@@ -121,7 +129,24 @@ const Seasons = ({ seasons, tvShowId }) => {
                                 {episode.vote_average.toFixed(1)}
                               </span>
                             </div>
-                            <span>{episode.overview}</span>
+                            <span>
+                              {
+                                episode.overview.length > 150 && !episode.allOverview
+                                  ? (
+                                    <>
+                                      {episode.overview.slice(0, 150)}
+                                      {' '}
+                                      <span
+                                        className="overview-expand"
+                                        onClick={() => expandEpisode(season.season_number, key)}
+                                      >
+                                        ...
+                                      </span>
+                                    </>
+                                  )
+                                  : episode.overview
+                              }
+                            </span>
                           </div>
                         </div>
                       ))
