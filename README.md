@@ -31,3 +31,4 @@ Remove node_modules folder;
 
 [Figma](https://www.figma.com/file/cobj97BqMFroTaKdjGoqfH/db-movies?node-id=0%3A1) \
 [API](https://developers.themoviedb.org/3/) \
+[URL](https://db-movies.netlify.app/)
