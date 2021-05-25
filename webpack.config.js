@@ -48,7 +48,7 @@ module.exports = {
     new HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'public/index.html'),
-      favicon: './src/assets/favicon.svg',
+      favicon: './src/assets/logo.png',
     }),
     new MiniCssExtractPlugin({
       filename: 'styles.css',
