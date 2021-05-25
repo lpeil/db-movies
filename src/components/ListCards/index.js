@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 
@@ -11,6 +12,7 @@ import { addMoreTvShows } from '../../store/modules/tvShows/actions';
 const ListCards = ({
   type, title, module, apiGet, listItems, query, lines, loading,
 }) => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const [items, setItems] = useState([]);
 
@@ -22,7 +24,7 @@ const ListCards = ({
   const containerDiv = useRef();
 
   function setQuantityOfItems() {
-    let cardsPerLine = Math.floor(containerDiv.current?.offsetWidth / 220);
+    let cardsPerLine = Math.floor(containerDiv.current?.offsetWidth / 216);
     if (cardsPerLine > 10) cardsPerLine = 10;
     if (cardsPerLine < 1) cardsPerLine = 1;
 
@@ -72,6 +74,10 @@ const ListCards = ({
     setPage(page + 1);
   };
 
+  const cardFlexBasis = () => ({
+    flexBasis: `${Math.floor(100 / (itemsPerPage / 2))}%`,
+  });
+
   return (
     <div className="list-cards" ref={containerDiv}>
       <h1>{title}</h1>
@@ -79,14 +85,28 @@ const ListCards = ({
         items.length || loading || loadingMore
           ? (
             <>
-              <Grid container direction="row" spacing={2} justify="space-around">
+              <Grid container direction="row" justify="space-between">
                 {items.slice(0, (itemsPerPage * page)).map((item) => (
-                  <Grid item key={item.id}>
+                  <Grid
+                    item
+                    container
+                    key={item.id}
+                    style={cardFlexBasis()}
+                    justify="center"
+                    className="card-container"
+                  >
                     <Card data={item} type={type} />
                   </Grid>
                 ))}
                 {(loading || loadingMore) && [...Array(itemsPerPage)].map((item, key) => (
-                  <Grid item key={key}>
+                  <Grid
+                    item
+                    container
+                    key={key}
+                    style={cardFlexBasis()}
+                    justify="center"
+                    className="card-container"
+                  >
                     <Card loading />
                   </Grid>
                 ))}
@@ -98,12 +118,12 @@ const ListCards = ({
                   variant="contained"
                   disabled={loadedAll}
                 >
-                  Load More
+                  {t('inputs.loadMore')}
                 </Button>
               </Grid>
             </>
           )
-          : <h1 className="no-data">No data</h1>
+          : <h1 className="no-data">{t('errors.nodata')}</h1>
       }
     </div>
   );

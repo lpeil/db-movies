@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
 import {
@@ -11,6 +12,7 @@ import {
 
 const TvShow = () => {
   const { id: tvShowId } = useParams();
+  const { i18n } = useTranslation();
   const [tvShow, setTvShow] = useState({});
   const [recommendations, setRecommendations] = useState([]);
   const [credits, setCredits] = useState({});
@@ -41,7 +43,7 @@ const TvShow = () => {
         setTvShow(data);
         loadExtraInfos();
       });
-  }, [tvShowId]);
+  }, [tvShowId, i18n.language]);
 
   return (
     <div className="tv-show-screen">

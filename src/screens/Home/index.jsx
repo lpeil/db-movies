@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import { ListCards } from '../../components';
 
@@ -13,6 +14,7 @@ const Home = () => {
   const tvShows = useSelector((state) => state.tvShows);
   const [loadingMovies, setLoadingMovies] = useState(true);
   const [loadingTvShows, setLoadingTvShows] = useState(true);
+  const { t, i18n } = useTranslation();
 
   const itemsPerPage = 14;
 
@@ -38,14 +40,14 @@ const Home = () => {
         dispatch(addMoreTvShows(data.results));
         setLoadingTvShows(false);
       });
-  }, []);
+  }, [i18n.language]);
 
   return (
     <div className="home-screen">
       <ListCards
         type="movie"
         module="movies"
-        title="Trending Movies"
+        title={t('titles.trending.movies')}
         itemsPerPage={itemsPerPage}
         apiGet={apiGetTrending}
         listItems={movies}
@@ -55,7 +57,7 @@ const Home = () => {
       <ListCards
         type="tv"
         module="tvShows"
-        title="Trending TV Shows"
+        title={t('titles.trending.tvShows')}
         itemsPerPage={itemsPerPage}
         apiGet={apiGetTrending}
         listItems={tvShows}

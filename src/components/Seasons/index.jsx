@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
 import { Grid } from '@material-ui/core';
 import {
@@ -13,6 +14,8 @@ import Image from '../Image';
 import { apiGetTvSeason } from '../../services/tvShow';
 
 const Seasons = ({ seasons, tvShowId, loading }) => {
+  const { t } = useTranslation();
+
   const [config, setConfig] = useState({});
   const [episodes, setEpisodes] = useState({});
 
@@ -61,7 +64,7 @@ const Seasons = ({ seasons, tvShowId, loading }) => {
 
   return (
     <div className="seasons">
-      <h1>Seasons</h1>
+      <h1>{t('titles.seasons')}</h1>
       <Grid container direction="row">
         {loading && [...Array(2)].map((item, key) => (
           <Grid item xs={12} md={6} key={key}>
@@ -85,7 +88,7 @@ const Seasons = ({ seasons, tvShowId, loading }) => {
               <div className="season-infos">
                 <h2>{season.name}</h2>
                 <span>
-                  {`${new Date(season.air_date).getFullYear()} | ${season.episode_count} episodes`}
+                  {`${new Date(season.air_date).getFullYear()} | ${season.episode_count} ${t('infos.episodes')}`}
                 </span>
                 <span>
                   {
@@ -104,7 +107,7 @@ const Seasons = ({ seasons, tvShowId, loading }) => {
                         </>
                       )
                       : season.overview
-                    : 'No description'
+                    : t('errors.noDescription')
                 }
                 </span>
                 <button type="button" onClick={() => expandSeason(season.season_number)}>
@@ -112,13 +115,13 @@ const Seasons = ({ seasons, tvShowId, loading }) => {
                     config[season.season_number]?.showEpisodes
                       ? (
                         <>
-                          Hide episodes
+                          {t('inputs.hideEpisodes')}
                           <ExpandLess />
                         </>
                       )
                       : (
                         <>
-                          Show episodes
+                          {t('inputs.showEpisodes')}
                           <ExpandMore />
                         </>
                       )

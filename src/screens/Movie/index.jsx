@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
 import {
@@ -11,6 +12,7 @@ import {
 
 const Movie = () => {
   const { id: movieId } = useParams();
+  const { i18n } = useTranslation();
   const [movie, setMovie] = useState({});
   const [recommendations, setRecommendations] = useState([]);
   const [credits, setCredits] = useState({});
@@ -41,7 +43,7 @@ const Movie = () => {
         setLoading(false);
         loadExtraInfos();
       });
-  }, [movieId]);
+  }, [movieId, i18n.language]);
 
   return (
     <div className="movie-screen">

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
 import { ListCards } from '../../components';
@@ -12,6 +13,7 @@ const Home = () => {
   const [tvShows, setTvShows] = useState([]);
   const [loadingMovies, setLoadingMovies] = useState(true);
   const [loadingTvShows, setLoadingTvShows] = useState(true);
+  const { t, i18n } = useTranslation();
 
   const itemsPerPage = 14;
 
@@ -27,14 +29,14 @@ const Home = () => {
         setTvShows(data.results);
         setLoadingTvShows(false);
       });
-  }, [text]);
+  }, [text, i18n.language]);
 
   return (
     <div className="home-screen">
       <ListCards
         type="movie"
         module="disable"
-        title="Search Movies"
+        title={t('titles.search.movies')}
         itemsPerPage={itemsPerPage}
         apiGet={apiSearchMovies}
         listItems={movies}
@@ -44,7 +46,7 @@ const Home = () => {
       <ListCards
         type="tv"
         module="disable"
-        title="Search TV Shows"
+        title={t('titles.search.tvShows')}
         itemsPerPage={itemsPerPage}
         apiGet={apiSearchMovies}
         listItems={tvShows}

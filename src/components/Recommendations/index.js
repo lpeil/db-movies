@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import Slider from 'react-slick';
 
@@ -6,6 +7,7 @@ import Arrow from '../Carrousel/Arrow';
 import Card from '../Card';
 
 const Recommendations = ({ recommendations, type }) => {
+  const { t } = useTranslation();
   const [slidesToShow, setSlidesToShow] = useState(1);
   const containerDiv = useRef();
 
@@ -33,7 +35,7 @@ const Recommendations = ({ recommendations, type }) => {
 
   return (
     <div className="recommendation" ref={containerDiv}>
-      <h1>Recommendations</h1>
+      <h1>{t('titles.recommendations')}</h1>
       <Slider
         {...sliderSettings}
         slidesToShow={slidesToShow}

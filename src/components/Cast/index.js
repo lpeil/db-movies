@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import Slider from 'react-slick';
 
@@ -6,6 +7,7 @@ import Arrow from '../Carrousel/Arrow';
 import Image from '../Image';
 
 const Cast = ({ cast }) => {
+  const { t } = useTranslation();
   const [slidesToShow, setSlidesToShow] = useState(1);
   const containerDiv = useRef();
 
@@ -33,7 +35,7 @@ const Cast = ({ cast }) => {
 
   return (
     <div className="cast" ref={containerDiv}>
-      <h1>Cast</h1>
+      <h1>{t('titles.cast')}</h1>
       {
         cast.length
           ? (
@@ -54,7 +56,7 @@ const Cast = ({ cast }) => {
               ))}
             </Slider>
           )
-          : <h2 className="no-data">No data</h2>
+          : <h2 className="no-data">{t('errors.nodata')}</h2>
       }
     </div>
   );

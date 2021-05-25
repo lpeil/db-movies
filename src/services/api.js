@@ -5,7 +5,5 @@ const api = axios.create({
 });
 
 api.defaults.headers.common.Authorization = `Bearer ${process.env.TMDB_TOKEN}`;
-api.defaults.params = {};
-api.defaults.params.language = 'pt-BR';
 
 export default api;
